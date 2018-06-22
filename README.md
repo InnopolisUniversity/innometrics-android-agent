@@ -1,1 +1,1 @@
-<img src="https://github.com/favicon.ico" width="48">
+<img src="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/images/login.jpg" width="150">
