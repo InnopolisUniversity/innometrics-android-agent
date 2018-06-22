@@ -8,7 +8,7 @@ Offline. Shows old local data. To download new data a user has to press sync but
 Metrics are listed in Metrics section. The user can see information about any metric pressing downarrow on it. Clicking a metric opens the metric in details:
  - Can display metric data, which value type is an integer, in an interactive graph. The graph takes a full-screen size if it is in landscape mode. 
  - Can display metrics with name "url" in a PieChart in a form of a top visited domain names. The number of slices is hardcoded.  
- <img src="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/images/int_metrics_portrait.jpg" width="280"><img src="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/images/int_metrics_landscape.jpg" width="498"><img src="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/images/urls.jpg" width="280">
+ <img src="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/images/int_metrics_portrait.jpg" width="280"><img src="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/images/urls.jpg" width="280"><img src="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/images/int_metrics_landscape.jpg" width="498">
 ### Agent part:
 Can collect data: package name of currently used app and location.  
 Both need special permissions. Can be enabled or disabled in the app in tracking settings. The app asks the user to enable permissions dynamically if there is no need.  
