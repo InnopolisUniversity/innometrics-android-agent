@@ -15,12 +15,13 @@ Metrics are listed in Metrics section. The user can see information about any me
  
 ### Agent part:
 Can collect data: package name of currently used app and location.  
-Both need special permissions. Can be enabled or disabled in the app in tracking settings. The app asks the user to enable permissions dinamically if there is no need.  
+Both need special permissions. Can be enabled or disabled in the app in tracking settings. The app asks the user to enable permissions dynamically if there is no need.  
 Agent part is realized in Track section. It has:
 - "Start" button, which starts tracking services and transforms to "Stop" button if services are running. To stop service press stop or close the app from applications stack (which doesn't work in some android versions and the user has only the first option).
 - Right ImageButton is for tracking settings, where the user can enable/disable tracking each type of data.
 - Left ImageButton is for jumping to a page, where the user can see collected data. The user can clear collected data or upload and clear. These 2 actions are part of an action bar.
-- Action bar has extra button "Info" which shows Dialog with Tracking segment explanation.  
+- Action bar has extra button "Info" which shows Dialog with Tracking section explanation.  
+
 <img src="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/images/tracking_fragment.jpg" width="280">
 <img src="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/images/apps.jpg" width="280">
 <img src="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/images/locatins.jpg" width="280">
