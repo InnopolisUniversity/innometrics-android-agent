@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_activities"
+        android:icon="@drawable/ic_library_books"
+        android:title="@string/nav_activities_str" />
+
+    <item
+        android:id="@+id/nav_metrics"
+        android:icon="@drawable/ic_donut_large"
+        android:title="@string/nav_metrics_str" />
+
+    <item
+        android:id="@+id/nav_general"
+        android:icon="@drawable/ic_donut_small"
+        android:title="@string/nav_track_str" />
+
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_menu_black"
+        android:title="@string/nav_profile_str" />
+
+</menu>

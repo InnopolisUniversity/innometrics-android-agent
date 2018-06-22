@@ -1,0 +1,49 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
+        applicationId "com.example.innometrics"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    //base dependencies
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support:preference-v7:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+
+    //for better bottom navigation
+    implementation 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
+    //for easy http requests
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    //for displaying metrics in different charts
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    //just for one function, which sorts maps
+    api 'com.google.guava:guava:25.1-android'
+    //room library - for convenient abstraction layer over local sql
+    def room_version = '1.1.0' // or, for latest rc, use "1.1.1-rc1"
+    implementation "android.arch.persistence.room:runtime:$room_version"
+    annotationProcessor "android.arch.persistence.room:compiler:$room_version"
+    //for google location services
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
+}

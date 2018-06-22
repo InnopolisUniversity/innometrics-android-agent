@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical">
+    <!--color-->
+    <View
+        android:id="@+id/pie_metric_domain_color"
+        style="@style/BaseOptionItem"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp" />
+    <!--domain-->
+    <TextView
+        android:id="@+id/pie_metric_domain_name"
+        style="@style/BaseOptionItem"
+        android:layout_toRightOf="@+id/pie_metric_domain_color"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="info"
+        android:textSize="15sp" />
+</RelativeLayout>

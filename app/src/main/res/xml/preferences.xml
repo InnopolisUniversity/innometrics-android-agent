@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:key="switch_track_foreground_app"
+        android:defaultValue="true"
+        android:title="@string/switch_track_foreground_app_str"
+        android:summary="@string/switch_track_foreground_app_description"
+        />
+    <SwitchPreference
+        android:key="switch_track_location"
+        android:defaultValue="true"
+        android:title="@string/switch_track_location_str"
+        android:summary="@string/switch_track_location_description"
+        />
+
+</PreferenceScreen>

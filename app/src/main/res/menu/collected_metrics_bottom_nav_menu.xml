@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_apps"
+        android:title="@string/nav_foreground_applications_str" />
+
+    <item
+        android:id="@+id/nav_locations"
+        android:title="@string/nav_locations_str" />
+</menu>

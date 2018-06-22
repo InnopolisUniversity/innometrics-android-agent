@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Innometrics</string>
+    <string name="login_header_str">Login</string>
+    <string name="hint_login_str">Username</string>
+    <string name="hint_password_str">Password</string>
+    <string name="hint_password_repeat_str">Repeat Password</string>
+    <string name="button_login_str">Login</string>
+    <string name="button_logout_str">Logout</string>
+    <string name="button_register_str">Register</string>
+    <string name="register_header">Register</string>
+    <string name="hint_email_str">Email</string>
+    <string name="nav_profile_str">Profile</string>
+    <string name="nav_settings_str">Settings</string>
+    <string name="nav_logout_str">Logout</string>
+    <string name="nav_activities_str">Activities</string>
+    <string name="nav_metrics_str">Metrics</string>
+    <string name="nav_track_str">Track</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="register_option_in_login_str">Create account</string>
+    <string name="login_option_in_register_str">Login</string>
+    <string name="settings_option_str">Settings</string>
+    <string name="logout_option_str">Logout</string>
+
+    <string name="action_bar_sync_str">Sync</string>
+    <string name="action_bar_setting_str">Setting</string>
+    <string name="no_network_str">No network</string>
+    <string name="no_network_retry_button_str">Retry</string>
+    <string name="button_start_service_str">Start tracking</string>
+    <string name="button_stop_service_str">Stop tracking</string>
+    <string name="button_tracking_settings_str">Settings</string>
+    <string name="button_tracking_data_str">Data</string>
+    <string name="switch_track_foreground_app_str">Track foreground app</string>
+    <string name="switch_track_location_str">Track location</string>
+    <string name="switch_track_wifi_data_str">Track wifi access points</string>
+    <string name="switch_track_foreground_app_description">You must also turn on usage access permission in your phone\'s settings.\nNote: it won\'t log if data is null, accuracy is to low or distance to previous location is too small</string>
+    <string name="switch_track_location_description">For it to work you have to enable location permission in your phone\s settings</string>
+    <string name="switch_track_wifi_data_description">To work you have to enable location permission in your phone settings</string>
+    <string name="metric_type_raw_str">raw</string>
+    <string name="metric_type_composite_str">composite</string>
+    <string name="title_activity_collected_metrics">CollectedMetricsActivity</string>
+    <string name="nav_locations_str">Locations</string>
+    <string name="nav_foreground_applications_str">Apps</string>
+    <string name="action_upload_local_data_str">Clear and Upload</string>
+    <string name="action_delete_local_data_str">Delete collected</string>
+    <string name="option_copy_coordinates_str">Copy</string>
+    <string name="tracking_fragment_description_label">todo</string>
+    <string name="tracking_info_message">Innometrics will track data enabled in tracking settings and your phone\'s permissions.\nTo stop service press stop or close the app from applications stack (which doesn\'t work in some android versions and you have only the first option).</string>
+
+    <string name="action_tracking_info_str">Tracking info</string>
+    <string name="tracking_info_title">Tracking info</string>
+    <string name="location_permission_needed_title">Location permission needed</string>
+    <string name="location_permission_needed_message">Innometrics needs to track your location.
+You can always disable this functionality in tracking settings or your app's settings.</string>
+
+</resources>
