@@ -22,4 +22,6 @@ Agent part is realized in Track section. It has:
 #### Remarks on tracking location
 For now, the tracker will log only if accuracy is more than 14 meters (meaning you are inside a circle with radius 14) and if you moved from a previous location at least 8 meters. The tracker will check location every minute unless you have android 8.0 and higher, which allows logging location few times in an hour.
 #### Download APK:
+{% raw %}
 [innometrics.apk](assets/innometrics.apk)
+{% endraw %}
