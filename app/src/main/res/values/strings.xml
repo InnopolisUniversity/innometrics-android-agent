@@ -34,8 +34,8 @@
     <string name="switch_track_foreground_app_str">Track foreground app</string>
     <string name="switch_track_location_str">Track location</string>
     <string name="switch_track_wifi_data_str">Track wifi access points</string>
-    <string name="switch_track_foreground_app_description">You must also turn on usage access permission in your phone\'s settings.\nNote: it won\'t log if data is null, accuracy is to low or distance to previous location is too small</string>
-    <string name="switch_track_location_description">For it to work you have to enable location permission in your phone\s settings</string>
+    <string name="switch_track_foreground_app_description">You must also turn on usage access permission in your phone\'s settings.</string>
+    <string name="switch_track_location_description">You must also enable location permission in your phone\'s settings\nNote: it won\'t log if data is null, accuracy is to low or distance to previous location is too small</string>
     <string name="switch_track_wifi_data_description">To work you have to enable location permission in your phone settings</string>
     <string name="metric_type_raw_str">raw</string>
     <string name="metric_type_composite_str">composite</string>
