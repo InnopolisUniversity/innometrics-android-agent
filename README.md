@@ -19,7 +19,7 @@ Agent part is realized in Track section. It has:
 - Action bar has an extra button "Info" which shows Dialog with Tracking section explanation.  
 <img src="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/assets/tracking_fragment.jpg" width="280"> <img src="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/assets/apps.jpg" width="280"> <img src="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/assets/locatins.jpg" width="280">   
 
-##### Remarks on tracking location
+#### Remarks on tracking location
 For now, the tracker will log only if accuracy is more than 14 meters (meaning you are inside a circle with radius 14) and if you moved from a previous location at least 8 meters. The tracker will check location every minute unless you have android 8.0 and higher, which allows logging location few times in an hour.
-##### Download APK:
-<a href="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/assets" download="innometrics.apk">innometrics.apk</a>
+#### Download APK:
+<a href="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/assets/" download="innometrics.apk">innometrics.apk</a>
