@@ -126,7 +126,7 @@ public class TrackingFragment extends Fragment implements View.OnClickListener {
             case R.id.button_tracking_settings:
                 if (DEBUG) Log.d(TAG, "button settings clicked");
                 if (isMyServiceRunning(LocationService.class) || isMyServiceRunning(ForegroundAppService.class)){
-                    Toast.makeText(getContext(), "Can't do that when tracking service is running", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getResources().getString(R.string.cant_do_due_to_services_toast_message), Toast.LENGTH_LONG).show();
                 } else {
                     Intent toSettings = new Intent(getContext(), TrackingSettingsActivity.class);
                     startActivity(toSettings);
@@ -252,7 +252,7 @@ public class TrackingFragment extends Fragment implements View.OnClickListener {
                     getActivity().startService(new Intent(getContext(), LocationService.class));
                     mButtonTrackingService.setText(getResources().getString(R.string.button_stop_service_str));
                 } else {
-                    Toast.makeText(getContext(), "Can't track location, permission denied", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getResources().getString(R.string.cant_track_location_permission), Toast.LENGTH_LONG).show();
                 }
                 return;
             }

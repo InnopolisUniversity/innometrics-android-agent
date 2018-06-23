@@ -82,7 +82,7 @@ public class ForegroundAppsFragment extends Fragment {
         mProgressDialog = new ProgressDialog(getContext(), R.style.AppBaseDialog);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setCancelable(false);
-        mProgressDialog.setMessage("Sending apps usage stats...");
+        mProgressDialog.setMessage(getResources().getString(R.string.foreground_apps_progress_dialog));
     }
 
     private void setData() {
@@ -100,8 +100,12 @@ public class ForegroundAppsFragment extends Fragment {
         if (!ApplicationUtils.isMyServiceRunning(ForegroundAppService.class, getActivity())){
             switch (item.getItemId()){
                 case R.id.action_upload_local_data:
-                    if (DEBUG) Log.d(TAG, "action upload");
-                    uploadData();
+                    if (ConnectionUtils.isNetworkConnected(getContext())) {
+                        if (DEBUG) Log.d(TAG, "action upload");
+                        uploadData();
+                    } else {
+                        Toast.makeText(getContext(), getResources().getString(R.string.no_network_toast_message), Toast.LENGTH_SHORT).show();
+                    }
                     return true;
                 case R.id.action_clear_local_data: {
                     if (DEBUG) Log.d(TAG, "action clear");
@@ -110,7 +114,7 @@ public class ForegroundAppsFragment extends Fragment {
                 }
             }
         } else {
-            Toast.makeText(getContext(), "Can't do that when tracking foreground apps", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getResources().getString(R.string.cant_upload_apps_toast_message), Toast.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
     }

@@ -32,10 +32,10 @@ public class LocationService extends Service implements
     public static final boolean DEBUG = ApplicationUtils.DEBUG;
     public static final boolean ERROR = ApplicationUtils.ERROR;
 
-    public static final int INTERVAL = 5000;
+    public static final int INTERVAL = 60000;
     public static final int FASTEST_INTERVAL = INTERVAL / 2;
     //minimal change in meters to previous location to log
-    public static final double MINIMAL_CHANGE = 5;
+    public static final double MINIMAL_CHANGE = 7;
     //if Location.getAccuracy returns 10, then there's a 68% chance the true location of the device is within 10 meters of the reported coordinates
     public static final int MINIMAL_ACCURACY = 14;
 

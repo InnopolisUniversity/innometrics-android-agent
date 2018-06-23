@@ -39,7 +39,7 @@ public class RegisterActivity extends BasicActivity {
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (networkAvailable(true)){
+                if (ConnectionUtils.networkAvailable(RegisterActivity.this, true)){
                     register();
                 }
             }
@@ -68,7 +68,7 @@ public class RegisterActivity extends BasicActivity {
         closeKeyboard();
         final ProgressDialog progressDialog = new ProgressDialog(this, R.style.AppBaseDialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Creating Account...");
+        progressDialog.setMessage(getResources().getString(R.string.registration_progress_dialog));
         progressDialog.show();
 
         final String login = mInputLogin.getText().toString();

@@ -1,8 +1,13 @@
 package com.example.innometrics.utils;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.example.innometrics.R;
 import com.example.innometrics.server.Connection;
 import com.example.innometrics.server.ResponseObject;
 import com.example.innometrics.server.ServerRequestItem;
@@ -134,5 +139,27 @@ public class ConnectionUtils {
             e.printStackTrace();
             return "";
         }
+    }
+
+    /**
+     * @return true if connection is available
+     * @param showToast - show Toast "No Internet Connection"
+     */
+    public static boolean networkAvailable(Context context, boolean showToast){
+        if (isNetworkConnected(context)){
+            return true;
+        } else {
+            if (showToast){
+                Toast.makeText(context, context.getResources().getString(R.string.no_network_toast_message), Toast.LENGTH_LONG).show();
+            }
+            return false;
+        }
+    }
+
+    public static boolean isNetworkConnected(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

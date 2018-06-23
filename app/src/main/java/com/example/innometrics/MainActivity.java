@@ -79,7 +79,7 @@ public class MainActivity extends BasicActivity {
         mProgressDialog = new ProgressDialog(this, R.style.AppBaseDialog);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setCancelable(false);
-        mProgressDialog.setMessage("Preparing user data...");
+        mProgressDialog.setMessage(getResources().getString(R.string.preparing_user_data_progress_dialog));
     }
 
     @Override
@@ -106,7 +106,7 @@ public class MainActivity extends BasicActivity {
         if (syncing
                 || (!activitiesPrefs.contains(ConnectionUtils.PREFS_ACTIVITIES_ACTIVITIES)
                 || !metricsPrefs.contains(ConnectionUtils.PREFS_METRICS_METRICS))){
-            if (networkAvailable(true)) {
+            if (ConnectionUtils.networkAvailable(this, true)) {
                 if (!loginRequired()){
                     if (DEBUG) Log.d(TAG, "setApplicationDataFromServer");
                     new DownloadDataAndPutIntoMetricsTask(mProgressDialog).execute();

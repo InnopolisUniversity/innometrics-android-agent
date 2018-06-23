@@ -94,7 +94,7 @@ public class LocationsFragment extends Fragment {
         mProgressDialog = new ProgressDialog(getContext(), R.style.AppBaseDialog);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setCancelable(false);
-        mProgressDialog.setMessage("Sending location logs");
+        mProgressDialog.setMessage(getResources().getString(R.string.locations_progress_dialog_str));
     }
 
     private void setData() {
@@ -267,8 +267,12 @@ public class LocationsFragment extends Fragment {
         if (!ApplicationUtils.isMyServiceRunning(ForegroundAppService.class, getActivity())){
             switch (item.getItemId()){
                 case R.id.action_upload_local_data:
-                    if (DEBUG) Log.d(TAG, "action upload");
-                    uploadData();
+                    if (ConnectionUtils.isNetworkConnected(getContext())) {
+                        if (DEBUG) Log.d(TAG, "action upload");
+                        uploadData();
+                    } else {
+                        Toast.makeText(getContext(), getResources().getString(R.string.no_network_toast_message), Toast.LENGTH_SHORT).show();
+                    }
                     return true;
                 case R.id.action_clear_local_data: {
                     if (DEBUG) Log.d(TAG, "action clear");
@@ -277,7 +281,7 @@ public class LocationsFragment extends Fragment {
                 }
             }
         } else {
-            Toast.makeText(getContext(), "Can't do that when tracking location", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getResources().getString(R.string.cant_upload_locations_toast_message), Toast.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
     }

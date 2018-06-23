@@ -45,13 +45,13 @@ public class LoginActivity extends BasicActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (networkAvailable(true)) login();
+                if (ConnectionUtils.networkAvailable(LoginActivity.this, true)) login();
             }
         });
         mLinkRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (networkAvailable(true)){
+                if (ConnectionUtils.networkAvailable(LoginActivity.this, true)){
                     Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                     startActivity(intent);
                 }
@@ -76,7 +76,7 @@ public class LoginActivity extends BasicActivity {
         //this time to show ProgressDialog Handler is used
         final ProgressDialog progressDialog = new ProgressDialog(this, R.style.AppBaseDialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
+        progressDialog.setMessage(getResources().getString(R.string.authentication_progress_dialog));
         progressDialog.show();
 
 
@@ -126,6 +126,7 @@ public class LoginActivity extends BasicActivity {
      * Note: only one error per edit field is shown, though server sends them as arrays (with one element)
      */
     private void onLoginFailed(ResponseObject answer) {
+        //TODO: response errors can't be translated like other strings
         JSONObject responseBody = answer.getResponse();
         try {
             if (responseBody.has(ConnectionUtils.LOGIN_USERNAME)){

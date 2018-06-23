@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.innometrics.utils.ConnectionUtils;
+
 
 /**
  * Allow to go to the main activity only
@@ -20,7 +22,7 @@ public class NoNetworkActivity extends BasicActivity {
         mRetryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (networkAvailable(false)){
+                if (ConnectionUtils.networkAvailable(NoNetworkActivity.this, false)){
                     Intent startAgain = new Intent(NoNetworkActivity.this, MainActivity.class);
                     startAgain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(startAgain);

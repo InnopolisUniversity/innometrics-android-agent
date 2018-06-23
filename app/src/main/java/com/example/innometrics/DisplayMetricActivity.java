@@ -52,8 +52,7 @@ import java.util.Map;
  * Other kinds of metrics are downloaded, but cannot be shown (yet).
  * Metric data is stored in separate SharedPreferences with key = "metric" + metricId.
  * If data is always there, old data is shown. To update a user has to press sync button in action bar.
- * I violated android name convention here to treat non-final variables as any other final in code.
- * Raw metrics and Composite metrics are converted to format, where they can be treated as the same.
+ * Raw metrics and Composite metrics are converted to format, and can be treated as the same.
  * If server format changes - change final constants and methods:
  * @see DisplayMetricActivity#prepareDataForRawMetrics()
  * @see DisplayMetricActivity#setConstantNamesForRawData()
@@ -93,18 +92,18 @@ public class DisplayMetricActivity extends BasicActivity {
     public static final String INFO_C_METRIC_PARTICIPATION = C_METRIC_PARTICIPATION;
     public static final String C_METRIC_VALUE = "value";
 
-    public static String METRIC_VALUE_NAME = "value_name";
-    public static String INFO = "info";
-    public static String METRIC_TYPE = "type";
-    public static String METRIC_VALUE_TYPE = "value_type";
-    public static String METRIC_NAME ="metric_name";
-    public static String X_VALUES = "x_values";
-    public static String Y_VALUES = "y_values";
-    public static String INFO_METRIC_VALUE = C_METRIC_VALUE;
-    public static String METRIC_ACTIVITY = "activity";
-    public static String METRIC_FIELD = "field";
+    public static String sMetricValueName = "value_name";
+    public static String sInfo = "info";
+    public static String sMetricType = "type";
+    public static String sMetricValueType = "value_type";
+    public static String sMetricName ="metric_name";
+    public static String sXValues = "x_values";
+    public static String sYValues = "y_values";
+    public static String sInfoMetricValue = C_METRIC_VALUE;
+    public static String sMetricActivity = "activity";
+    public static String sMetricField = "field";
     public static final String PIE_NORMALIZED_FLAG = "pie_chart_type";
-    public static String METRIC_ID = RAW_METRIC_ID;
+    public static String sMetricID = RAW_METRIC_ID;
 
     public static final String METRIC_VALUE_TYPE_INT = "int";
     public static final String METRIC_FIELD_URL = "url";
@@ -142,7 +141,7 @@ public class DisplayMetricActivity extends BasicActivity {
         mProgressDialog = new ProgressDialog(this, R.style.AppBaseDialog);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setCancelable(false);
-        mProgressDialog.setMessage("Preparing metrics...");
+        mProgressDialog.setMessage(getResources().getString(R.string.preparing_metrics_progress_dialog));
     }
 
     @Override
@@ -173,7 +172,7 @@ public class DisplayMetricActivity extends BasicActivity {
     }
 
     private JSONObject setMetricDataFromServer(){
-        if (networkAvailable(true)) {
+        if (ConnectionUtils.networkAvailable(this,true)) {
             loginRequired();
             if(DEBUG) Log.d(TAG, "setMetricDataFromServer");
             SharedPreferences userPrefs = getSharedPreferences(ConnectionUtils.PREFS_USER, MODE_PRIVATE);
@@ -244,8 +243,8 @@ public class DisplayMetricActivity extends BasicActivity {
      */
     private void prepareDataForCompositeMetrics() throws JSONException {
         if(DEBUG) Log.d(TAG, "prepareDataForCompositeMetrics");
-        mMetric.accumulate(METRIC_VALUE_TYPE, METRIC_VALUE_TYPE_INT);
-        mMetric.put(METRIC_TYPE, METRIC_TYPE_COMPOSITE_PREPARED);
+        mMetric.accumulate(sMetricValueType, METRIC_VALUE_TYPE_INT);
+        mMetric.put(sMetricType, METRIC_TYPE_COMPOSITE_PREPARED);
     }
 
     /**
@@ -262,24 +261,24 @@ public class DisplayMetricActivity extends BasicActivity {
         for (int i = 0; i < measurements.length(); i++)
             values.add(measurements.getJSONObject(i).getString(RAW_METRIC_VALUE));
         JSONObject row = measurements.getJSONObject(0);
-        row.accumulate(Y_VALUES, new JSONArray(values));
-        row.put(METRIC_VALUE_TYPE, row.getString(RAW_METRIC_VALUE_TYPE));
-        row.put(METRIC_TYPE, METRIC_TYPE_RAW_PREPARED);
-        row.put(METRIC_ID, mMetric.getString(RAW_METRIC_ID));
+        row.accumulate(sYValues, new JSONArray(values));
+        row.put(sMetricValueType, row.getString(RAW_METRIC_VALUE_TYPE));
+        row.put(sMetricType, METRIC_TYPE_RAW_PREPARED);
+        row.put(sMetricID, mMetric.getString(RAW_METRIC_ID));
         mMetric = row;
     }
 
     private void setConstantNamesForRawData() {
-        METRIC_NAME = RAW_METRIC_NAME;
-        METRIC_VALUE_NAME = RAW_METRIC_VALUE_NAME;
-        METRIC_ACTIVITY = RAW_METRIC_ACTIVITY;
-        METRIC_FIELD =  RAW_METRIC_FIELD;
+        sMetricName = RAW_METRIC_NAME;
+        sMetricValueName = RAW_METRIC_VALUE_NAME;
+        sMetricActivity = RAW_METRIC_ACTIVITY;
+        sMetricField =  RAW_METRIC_FIELD;
     }
 
     private void setConstantNamesForCompositeData() {
-        METRIC_NAME = C_METRIC_NAME;
-        METRIC_TYPE = C_METRIC_TYPE;
-        INFO = C_METRIC_INFO;
+        sMetricName = C_METRIC_NAME;
+        sMetricType = C_METRIC_TYPE;
+        sInfo = C_METRIC_INFO;
     }
 
     /**
@@ -338,8 +337,8 @@ public class DisplayMetricActivity extends BasicActivity {
      */
     private void setMetricForPreparedRawMetric() throws JSONException {
         if(DEBUG) Log.d(TAG, "prepared data for raw: " + mMetric.toString());
-        if(DEBUG) Log.d(TAG, "y_values of prepared data " + mMetric.getString(Y_VALUES));
-        String field = mMetric.getString(METRIC_FIELD);
+        if(DEBUG) Log.d(TAG, "y_values of prepared data " + mMetric.getString(sYValues));
+        String field = mMetric.getString(sMetricField);
         if(DEBUG) Log.d(TAG, "field " + field);
         switch (field) {
             case METRIC_FIELD_URL:
@@ -347,7 +346,7 @@ public class DisplayMetricActivity extends BasicActivity {
                 setPieChartForRawMetric(numberOfSlices);
                 break;
             default:
-                String value_type = mMetric.getString(METRIC_VALUE_TYPE);
+                String value_type = mMetric.getString(sMetricValueType);
                 if(DEBUG) Log.d(TAG, "value type: " + value_type);
                 if (value_type.equals(METRIC_VALUE_TYPE_INT)) {
                     setLineChartForRawMetric();
@@ -371,15 +370,15 @@ public class DisplayMetricActivity extends BasicActivity {
         Map<String, Integer> domainNames;
         if (mMetric.has(PIE_NORMALIZED_FLAG)){
             if(DEBUG) Log.d(TAG, "domain names from prefs");
-            domainNames = ApplicationUtils.convertToMap(mMetric.getJSONObject(Y_VALUES));
+            domainNames = ApplicationUtils.convertToMap(mMetric.getJSONObject(sYValues));
         } else {
             if(DEBUG) Log.d(TAG, "domain names from server");
-            JSONArray jsonArray = mMetric.getJSONArray(Y_VALUES);
+            JSONArray jsonArray = mMetric.getJSONArray(sYValues);
             domainNames = ApplicationUtils.getDomainNamesFromURLs(jsonArray);
             JSONObject domainNamesJSON = new JSONObject(domainNames);
-            mMetric.put(Y_VALUES, domainNamesJSON);
+            mMetric.put(sYValues, domainNamesJSON);
             mMetric.put(PIE_NORMALIZED_FLAG, "");
-            String prefsName = PREFS_METRIC.concat(mMetric.getString(METRIC_ID));
+            String prefsName = PREFS_METRIC.concat(mMetric.getString(sMetricID));
             SharedPreferences prefs = getSharedPreferences(prefsName, MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString(PREFS_METRIC_EDITOR_KEY, mMetric.toString());
@@ -472,8 +471,8 @@ public class DisplayMetricActivity extends BasicActivity {
         mMetricDescriptionListView = findViewById(R.id.metric_description_list_view);
         if(DEBUG) Log.d(TAG, "listView found");
         HashMap<String, String> details = new HashMap<>();
-        details.put("Metric name", mMetric.getString(METRIC_NAME));
-        details.put("Activity", mMetric.getString(METRIC_ACTIVITY));
+        details.put("Metric name", mMetric.getString(sMetricName));
+        details.put("Activity", mMetric.getString(sMetricActivity));
         setInformation(details);
     }
 
@@ -485,7 +484,7 @@ public class DisplayMetricActivity extends BasicActivity {
     private void setInformationForCompositeMetric() throws JSONException {
         mMetricDescriptionListView = findViewById(R.id.metric_description_list_view);
         HashMap<String, String> details = new HashMap<>();
-        details.put("Metric name", mMetric.getString(METRIC_NAME));
+        details.put("Metric name", mMetric.getString(sMetricName));
         //TODO: more information here
         setInformation(details);
     }
@@ -516,8 +515,8 @@ public class DisplayMetricActivity extends BasicActivity {
     private void setLineChartForRawMetric() throws JSONException {
         if(DEBUG) Log.d(TAG, "line chart raw mMetric");
         setContentView(R.layout.activity_display_metric);
-        String label = mMetric.getString(METRIC_NAME);
-        List<Float> yValues = ApplicationUtils.floatArrayListFromJSONArray(mMetric.getJSONArray(Y_VALUES));
+        String label = mMetric.getString(sMetricName);
+        List<Float> yValues = ApplicationUtils.floatArrayListFromJSONArray(mMetric.getJSONArray(sYValues));
         setLineChart(null, yValues, label);
     }
 
@@ -527,9 +526,9 @@ public class DisplayMetricActivity extends BasicActivity {
      */
     private void setLineChartForCompositeMetric() throws JSONException {
         if(DEBUG) Log.d(TAG, "line chart composite mMetric");
-        String label = mMetric.getString(METRIC_NAME);
-        List<Float> xValues = ApplicationUtils.floatArrayListFromJSONArray(mMetric.getJSONArray(X_VALUES));
-        List<Float> yValues = ApplicationUtils.floatArrayListFromJSONArray(mMetric.getJSONArray(Y_VALUES));
+        String label = mMetric.getString(sMetricName);
+        List<Float> xValues = ApplicationUtils.floatArrayListFromJSONArray(mMetric.getJSONArray(sXValues));
+        List<Float> yValues = ApplicationUtils.floatArrayListFromJSONArray(mMetric.getJSONArray(sYValues));
         setLineChart(xValues, yValues, label);
     }
 

@@ -17,21 +17,6 @@ import com.example.innometrics.utils.ApplicationUtils;
  */
 public class BasicActivity extends AppCompatActivity {
     /**
-     * @return true if connection is available
-     * @param showToast - show Toast "No Internet Connection"
-     */
-    public boolean networkAvailable(boolean showToast){
-        if (isNetworkConnected()){
-               return true;
-        } else {
-            if (showToast){
-                Toast.makeText(this, "No Internet connection", Toast.LENGTH_LONG).show();
-            }
-            return false;
-        }
-    }
-
-    /**
      * Checks if a user has to log in and starts
      */
     public boolean loginRequired(){
@@ -46,12 +31,6 @@ public class BasicActivity extends AppCompatActivity {
         return false;
     }
 
-    public boolean isNetworkConnected() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
 
     public void closeKeyboard() {
         //User expects to keyboard to be closed after some actions (e.g. pressing enter)

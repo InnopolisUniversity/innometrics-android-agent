@@ -46,12 +46,23 @@
     <string name="action_delete_local_data_str">Delete collected</string>
     <string name="option_copy_coordinates_str">Copy</string>
     <string name="tracking_fragment_description_label">todo</string>
-    <string name="tracking_info_message">Innometrics will track data enabled in tracking settings and your phone\'s permissions.\nTo stop service press stop or close the app from applications stack (which doesn\'t work in some android versions and you have only the first option).</string>
+    <string name="tracking_info_message">Innometrics will track data enabled in tracking settings and if permissions in your phone\'s settings are on.\nTo stop service press stop or close the app from applications stack (which doesn\'t work in some android versions and you have only the first option).</string>
 
     <string name="action_tracking_info_str">Tracking info</string>
     <string name="tracking_info_title">Tracking info</string>
     <string name="location_permission_needed_title">Location permission needed</string>
     <string name="location_permission_needed_message">Innometrics needs to track your location.
 You can always disable this functionality in tracking settings or your app's settings.</string>
+    <string name="no_network_toast_message">No netwrork available</string>
+    <string name="cant_upload_locations_toast_message">Can\'t do that when tracking location</string>
+    <string name="cant_upload_apps_toast_message">Can\'t do that when tracking foreground apps</string>
+    <string name="cant_do_due_to_services_toast_message">Can\'t do that when tracking services are running</string>
+    <string name="cant_track_location_permission">Can\'t track location, permission denied</string>
+    <string name="foreground_apps_progress_dialog">Sending apps usage stats..</string>
+    <string name="locations_progress_dialog_str">Sending location logs..</string>
+    <string name="preparing_user_data_progress_dialog">Preparing user data..</string>
+    <string name="preparing_metrics_progress_dialog">Preparing metrics..</string>
+    <string name="authentication_progress_dialog">Authentication..</string>
+    <string name="registration_progress_dialog">Creating account..</string>
 
 </resources>
