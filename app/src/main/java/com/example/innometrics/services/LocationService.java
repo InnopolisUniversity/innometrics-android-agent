@@ -39,8 +39,6 @@ public class LocationService extends Service implements
     //if Location.getAccuracy returns 10, then there's a 68% chance the true location of the device is within 10 meters of the reported coordinates
     public static final int MINIMAL_ACCURACY = 14;
 
-
-    private boolean currentlyProcessingLocation = false;
     private LocationRequest mLocationRequest;
     private GoogleApiClient mGoogleApiClient;
     private FusedLocationProviderClient mFusedLocationClient;

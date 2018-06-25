@@ -103,6 +103,15 @@ public class ForegroundAppService extends Service {
                         mCurrentApp = newApp;
                     }
                 }
+            } else {
+                ForegroundApp sleeping = new ForegroundApp();
+                sleeping.setStartingTime(System.currentTimeMillis());
+                sleeping.setForegroundApplicationName("sleeping");
+                if (!mCurrentApp.getForegroundApplicationName().equals(sleeping.getForegroundApplicationName())) {
+                    if (DEBUG) Log.d(TAG, "sleeping mode");
+                    mDao.insertAll(mCurrentApp);
+                    mCurrentApp = sleeping;
+                }
             }
             mHandler.postDelayed(this, INTERVAL_IN_MILLIS);
         }
