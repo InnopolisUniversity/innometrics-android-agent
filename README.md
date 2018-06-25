@@ -1,6 +1,7 @@
 # Innometrics android client
+Generally, Innometrics applications collect data (agent part) and some of them are displayed on the web dashboard (http://188.130.155.78:8000/#/dashboard/project/all/general/). This Android app can do a bit of both. 
 ### Dashboard part:
-Supports some functionality of a dashboard (http://188.130.155.78:8000/#/dashboard/project/all/general/): register & login, profile page, displaying activities and some metrics.  
+Supports some functionality of a dashboard: register & login, profile page, displaying activities and some metrics.  
 <img src="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/assets/login.jpg" width="280">
 <img src="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/assets/register.jpg" width="280">
 <img src="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/assets/metrics.jpg" width="280">
