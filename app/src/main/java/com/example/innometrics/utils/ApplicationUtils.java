@@ -39,7 +39,7 @@ public class ApplicationUtils {
     public static final int LOG_LEVEL_INFO = 3;
     public static final int LOG_LEVEL_DEBUG = 4;
     public static final int LOG_LEVEL_VERBOSE = 5;
-    public static final int sCurrentLevel = 2;
+    public static final int sCurrentLevel = 4;
     public static boolean ERROR = sCurrentLevel >= LOG_LEVEL_ERROR;
     public static boolean WARN = sCurrentLevel >= LOG_LEVEL_WARN;
     public static boolean INFO = sCurrentLevel >= LOG_LEVEL_INFO;

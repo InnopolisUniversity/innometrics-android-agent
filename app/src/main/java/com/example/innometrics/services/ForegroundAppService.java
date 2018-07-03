@@ -83,7 +83,7 @@ public class ForegroundAppService extends Service {
         };
         thread.start();
         mHandler.postDelayed(mTrackAppsRunnable, INTERVAL_IN_MILLIS);
-        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
     }
 
     private class TrackAppsRunnable implements Runnable {

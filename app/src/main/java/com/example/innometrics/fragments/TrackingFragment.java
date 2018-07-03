@@ -50,7 +50,7 @@ public class TrackingFragment extends Fragment implements View.OnClickListener {
 
     public static final String PREFS_TRACK_APPS = "switch_track_foreground_app";
     public static final String PREFS_TRACK_LOCATION = "switch_track_location";
-//    public static final String PREFS_TRACK_WIFI_DATA = "switch_track_wifi_data";
+    //    public static final String PREFS_TRACK_WIFI_DATA = "switch_track_wifi_data";
     private static final int PERMISSION_LOCATION = 1;
 
 
@@ -145,9 +145,9 @@ public class TrackingFragment extends Fragment implements View.OnClickListener {
         alertBuilder.setCancelable(true);
         alertBuilder.setTitle("Package usage stats permission is needed");
         alertBuilder.setMessage("Innometrics needs to track your foreground apps.\n" +
-                        "A user only can disable or enable this functionality in an app in phone's settings.\n" +
-                        "Would you like to proceed to phone's settings?"
-                        );
+                "A user only can disable or enable this functionality in an app in phone's settings.\n" +
+                "Would you like to proceed to phone's settings?"
+        );
         alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
