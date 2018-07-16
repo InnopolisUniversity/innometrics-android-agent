@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -27,7 +28,14 @@ public class Connection extends AsyncTask<ServerRequestItem, Void, ResponseObjec
     public static final boolean DEBUG = ApplicationUtils.DEBUG;
     public static final boolean ERROR = ApplicationUtils.ERROR;
 
-    public static OkHttpClient sClient = new OkHttpClient();
+    public static OkHttpClient sClient = new OkHttpClient.Builder()
+            .connectTimeout(10, TimeUnit.SECONDS)
+            //TODO: writeTimeout is big because it takes lots of time to send data
+            //and because I didn't get to divide data and upload them separately
+            //even better would be uploading data in background with progress bar somewhere in the app
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build();
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -55,6 +63,7 @@ public class Connection extends AsyncTask<ServerRequestItem, Void, ResponseObjec
         if (DEBUG) Log.d(TAG,"REQUEST url: " + requestItem.getUrl());
         if (DEBUG) Log.d(TAG,"REQUEST token: " + requestItem.getToken());
         if (DEBUG) Log.d(TAG,"REQUEST body: " + requestItem.getBody());
+
         Request request;
         if (requestItem.getToken() == null){
             if (requestItem.getBody() == null) {

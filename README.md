@@ -17,7 +17,8 @@ Agent part is realized in Track section. It has:
 - "Start" button, which starts tracking services and transforms to "Stop" button if services are running. To stop service press stop or close the app from applications stack (which doesn't work in some android versions and the user has only the first option).
 - Right ImageButton is for tracking settings, where the user can enable/disable tracking each type of data.
 - Left ImageButton is for jumping to a page, where the user can see collected data. The user can clear collected data or upload and clear. These 2 actions are part of an action bar.
-- Action bar has an extra button "Info" which shows Dialog with Tracking section explanation.  
+- Action bar has an extra button "Info" which shows Dialog with Tracking section explanation.
+- Note: uploading data is implemented poorly, so the app can't upload data which takes more than 60 seconds. Future development: uploading in background with a progress bar and dividing data so there will be no connection timeouts and UI will be more friendly.
 <img src="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/assets/tracking_fragment.jpg" width="280"> <img src="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/assets/apps.jpg" width="280"> <img src="https://github.com/InnopolisUniversity/innometrics-android-agent/blob/master/assets/locatins.jpg" width="280">   
 
 #### More on tracking location
