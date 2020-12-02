@@ -34,27 +34,28 @@ public class ConnectionUtils {
     //server urls
     public static final String DOMAIN_NAME = "http://188.130.155.78:8000/";
     public static final String URL_REGISTER = "http://188.130.155.78:8000/register/";
-    public static final String URL_LOGIN_TOKEN = "http://188.130.155.78:8000/api-token-auth/";
+    public static final String URL_LOGIN_TOKEN =  "https://innometric.guru:9091/login"; //"http://188.130.155.78:8000/api-token-auth/";
     public static final String URL_PROJECTS = "http://188.130.155.78:8000/project/";
-    public static final String URL_METRICS = "http://188.130.155.78:8000/projects/metrics/";
+    public static final String URL_METRICS = "https://innometric.guru:9091/V1/Reports/timeReport"; //"http://188.130.155.78:8000/projects/metrics/";
     public static final String URL_METRIC_DATA = "http://188.130.155.78:8000/projects/metrics/&s/data";
-    public static final String URL_ACTIVITIES = "http://188.130.155.78:8000/projects/metrics/activities/";
+    public static final String URL_ACTIVITIES = "https://innometric.guru:9091/V1/activity"; //"http://188.130.155.78:8000/projects/metrics/activities/";
     public static final String URL_VALUES = "http://188.130.155.78:8000/projects/metrics/values/";
 
-    public static final String URL_SEND_ACTIVITIES = "http://188.130.155.78:8000/activities/";
+    public static final String URL_SEND_ACTIVITIES = "https://innometric.guru:9091/V1/activity"; //"http://188.130.155.78:8000/activities/";
 
     //for json objects from server
 
-    //register and login
+    //register and login API keys
     public static final String REGISTER_USERNAME = "username";
     public static final String REGISTER_EMAIL = "email";
     public static final String REGISTER_PASSWORD = "password";
     public static final String REGISTER_TOKEN = "token";
     public static final String REGISTER_NON_FIELD_ERRORS = "non_field_errors";
-    public static final String LOGIN_USERNAME = REGISTER_USERNAME;
+    public static final String LOGIN_USERNAME = REGISTER_EMAIL;
     public static final String LOGIN_PASSWORD = REGISTER_PASSWORD;
-    public static final String LOGIN_NON_FIELD_ERRORS = REGISTER_NON_FIELD_ERRORS;
-    //response objects
+    public static final String LOGIN_PROJECT = "projectID";
+    //public static final String LOGIN_NON_FIELD_ERRORS = REGISTER_NON_FIELD_ERRORS;
+    //response objects API keys
     public static final String ACTIVITIES = "activities";
     public static final String ACTIVITY_NAME = "name";
     public static final String ACTIVITY_PROPERTIES_NAME = "properties";
@@ -80,12 +81,20 @@ public class ConnectionUtils {
 
     //for sending data
     public static final String SEND_ACTIVITIES = "activities";
-    public static final String SEND_ACTIVITY_NAME = "name";
-    public static final String SEND_ACTIVITY_COMMENT = "comment";
-    public static final String SEND_ACTIVITY_MEASUREMENTS = "measurements";
-    public static final String SEND_ACTIVITY_MEASUREMENT_TYPE = "type";
-    public static final String SEND_ACTIVITY_MEASUREMENT_NAME = "name";
-    public static final String SEND_ACTIVITY_MEASUREMENT_VALUE = "value";
+    public static final String SEND_ACTIVITY_ID = "activityID";
+    public static final String SEND_ACTIVITY_TYPE = "activityType";
+    public static final String SEND_ACTIVITY_BROWSER_TITLE = "browser_title";
+    public static final String SEND_ACTIVITY_BROWSER_URL = "browser_url";
+    public static final String SEND_ACTIVITY_END_TIME = "end_time";
+    public static final String SEND_ACTIVITY_EXECUTABLE_NAME = "executable_name";
+    public static final String SEND_ACTIVITY_IDLE_ACTIVITY = "idle_activity";
+    public static final String SEND_ACTIVITY_IP_ADDRESS = "ip_address";
+    public static final String SEND_ACTIVITY_MAC_ADDRESS = "mac_address";
+    public static final String SEND_ACTIVITY_OS_VERSION = "osversion";
+    public static final String SEND_ACTIVITY_PID = "pid";
+    public static final String SEND_ACTIVITY_START_TIME = "start_time";
+    public static final String SEND_ACTIVITY_USER_ID = "userID";
+
 
 
     public static ResponseObject request(ServerRequestItem requestItem){
@@ -126,6 +135,7 @@ public class ConnectionUtils {
         try {
             loginAndPassword.accumulate(LOGIN_USERNAME, username);
             loginAndPassword.accumulate(LOGIN_PASSWORD, password);
+            loginAndPassword.accumulate(LOGIN_PROJECT, "parasha"); // the field is not at use as of 10.11.2020
             ResponseObject answer = request(new ServerRequestItem(URL_LOGIN_TOKEN, null, loginAndPassword.toString()));
             if (answer == null){
                 if (ERROR) Log.e(TAG, "answer is null!");

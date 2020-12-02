@@ -73,6 +73,15 @@ public class MainActivity extends BasicActivity {
         if (savedInstanceState == null) {
             setApplicationData(false);
         }
+        else
+        {
+            //This was made in 10.11.2020
+            //if I dont call this function, when launching under debugger,
+            // when login crashes with credentials that were previously used in register form (even if register was not successful),
+            // app restarts and I get access to main part of the app which is really weird
+            // calling this function stops this random effect, but who knows what it causes?
+            setApplicationData(true);
+        }
     }
 
     private void setProgressDialog(){

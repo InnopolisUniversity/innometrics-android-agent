@@ -79,17 +79,17 @@ public class Connection extends AsyncTask<ServerRequestItem, Void, ResponseObjec
                         .build();
             }
         } else {
-            String tokenAugmented = "Token ".concat(requestItem.getToken());
+            String tokenAugmented = requestItem.getToken();//"Token ".concat(requestItem.getToken());
             if (requestItem.getBody() == null) {
                 request = new Request.Builder()
                         .url(requestItem.getUrl())
-                        .header("Authorization", tokenAugmented)
+                        .header("Token", tokenAugmented)
                         .build();
             } else {
                 RequestBody body = RequestBody.create(JSON, requestItem.getBody());
                 request = new Request.Builder()
                         .url(requestItem.getUrl())
-                        .header("Authorization", tokenAugmented)
+                        .header("Token", tokenAugmented)
                         .post(body)
                         .build();
             }
@@ -103,6 +103,14 @@ public class Connection extends AsyncTask<ServerRequestItem, Void, ResponseObjec
                 if (responseBody == null) {
                     if (ERROR) Log.e(TAG, "responseBody is null!");
                 } else if (DEBUG) Log.d(TAG, "response: " + responseBody);
+
+                //Ok, listen, this is the worst cludge I have ever written
+                //Response should have always been JSON
+                //But sometimes it just isn't
+                //Fix it on the backend, don't blame it on me
+                //02.12.2020
+                if (responseBody.equals(""))
+                    responseBody="{}";
 
                 return new ResponseObject(response.code(), new JSONObject(responseBody));
             } catch (JSONException e) {

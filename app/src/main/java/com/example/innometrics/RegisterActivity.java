@@ -83,6 +83,13 @@ public class RegisterActivity extends BasicActivity {
                             jsonObject.accumulate(ConnectionUtils.REGISTER_PASSWORD, password);
                             jsonObject.accumulate(ConnectionUtils.REGISTER_EMAIL, email);
                             ResponseObject answer = ConnectionUtils.request(new ServerRequestItem(ConnectionUtils.URL_REGISTER, null, jsonObject.toString()));
+                            if (answer == null)
+                            {
+                                Log.e(TAG, "responseBody is null!");
+                                onRegisterFailed(null);
+                                progressDialog.dismiss();
+                                return;
+                            }
                             if (answer.getResponseCode() == HttpURLConnection.HTTP_OK || answer.getResponseCode() == HttpURLConnection.HTTP_CREATED) {
                                 onRegisterSuccess(answer, login, email, password);
                             } else {
@@ -119,6 +126,13 @@ public class RegisterActivity extends BasicActivity {
      * Note: only one error per edit field is shown, though server sends them as arrays (with one element)
      */
     private void onRegisterFailed(ResponseObject answer){
+        if (answer == null)
+        {
+            Toast.makeText(getBaseContext(), "There is no connection to server", Toast.LENGTH_LONG).show();
+            mRegisterButton.setEnabled(true);
+            return;
+        }
+
         JSONObject responseBody = answer.getResponse();
         try {
             if (responseBody.has(ConnectionUtils.REGISTER_USERNAME)){
