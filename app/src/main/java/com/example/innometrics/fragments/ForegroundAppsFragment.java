@@ -32,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -39,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.example.innometrics.server.Connection.requestToServer;
+import static com.example.innometrics.utils.ApplicationUtils.getMACAddress;
 import static com.example.innometrics.utils.ApplicationUtils.sFormat;
 /**
  * One of the fragments of CollectedMetricActivity
@@ -161,11 +163,11 @@ public class ForegroundAppsFragment extends Fragment {
                     break;
                 case sUploadToServer:
                     try {
-                        JSONObject requestBody = getRequestBody();
+                        JSONObject requestBody = constructRequestBody();
                         SharedPreferences prefs = getContext().getSharedPreferences(ConnectionUtils.PREFS_USER, Context.MODE_PRIVATE);
                         ServerRequestItem requestItem = new ServerRequestItem(ConnectionUtils.URL_SEND_ACTIVITIES, prefs.getString(ConnectionUtils.PREFS_USER_TOKEN, ""), requestBody.toString());
                         ResponseObject responseObject = requestToServer(requestItem);
-                        if (responseObject.getResponseCode() != HttpURLConnection.HTTP_CREATED){
+                        if (responseObject == null || responseObject.getResponseCode() != HttpURLConnection.HTTP_OK){
                             if (DEBUG) Log.d(TAG, "activities didn't make it");
                         } else {
                             if (DEBUG) Log.d(TAG, "They made it! Activities!");
@@ -219,27 +221,46 @@ public class ForegroundAppsFragment extends Fragment {
      * It is inefficient way of uploading data.
      * To change it - change the server first
      */
-    public JSONObject getRequestBody() throws JSONException {
+    public JSONObject constructRequestBody() throws JSONException {
         if (DEBUG) Log.d(TAG, "getRequestBody");
         JSONObject response = new JSONObject();
         JSONArray activities = new JSONArray();
         for (int i = 0; i < mApps.size(); i++) {
             ForegroundApp item = mApps.get(i);
+
+            if (item.getForegroundApplicationName().equals("end_tracking"))
+                continue; // We don't want to send rubbish to server
+            if (i + 1 == mApps.size())
+                continue; // We assume that last object is rubbish, don't bother to check it
+
+            ForegroundApp nextItem = mApps.get(i+1);;
+
             JSONObject activity = new JSONObject();
-            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_NAME, "Android Agent. Foreground Applications");
-            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_COMMENT, "");
-            JSONArray measurements = new JSONArray();
-            JSONObject appName = new JSONObject();
-            appName.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_TYPE, "double");
-            appName.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_NAME, "package_name");
-            appName.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_VALUE, item.getForegroundApplicationName());
-            JSONObject startingTime = new JSONObject();
-            startingTime.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_TYPE, "long");
-            startingTime.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_NAME, "starting_time");
-            startingTime.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_VALUE, item.getStartingTime());
-            measurements.put(appName);
-            measurements.put(startingTime);
-            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENTS, measurements);
+            Date date = new java.util.Date(item.getStartingTime());
+            Date date2 = new java.util.Date(nextItem.getStartingTime());
+
+            SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+            // give a timezone reference for formatting (see comment at the bottom)
+            sdf.setTimeZone(java.util.TimeZone.getTimeZone("UTC"));
+            String formattedDate = sdf.format(date);
+            String formattedDate2 = sdf.format(date2);
+
+            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_ID, 0); //NotImplemented
+            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_TYPE, "NotImplemented");
+            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_BROWSER_TITLE, "NotImplemented");
+            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_BROWSER_URL, "NotImplemented");
+            //activity.accumulate(ConnectionUtils.SEND_ACTIVITY_END_TIME, nextItem.getStartingTime());
+            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_END_TIME, formattedDate2);
+            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_EXECUTABLE_NAME, item.getForegroundApplicationName());
+            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_IDLE_ACTIVITY, false); //NotImplemented
+            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_IP_ADDRESS, ApplicationUtils.getIPAddress(true));
+            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_MAC_ADDRESS, ApplicationUtils.getMACAddress(null));
+            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_OS_VERSION, "Android SDK version " + android.os.Build.VERSION.SDK_INT);
+            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_PID, "NotImplemented");
+            //activity.accumulate(ConnectionUtils.SEND_ACTIVITY_START_TIME, item.getStartingTime());
+            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_START_TIME, formattedDate);
+            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_USER_ID, "NotImplemented");
+
             activities.put(activity);
         }
         response.accumulate(ConnectionUtils.SEND_ACTIVITIES, activities);

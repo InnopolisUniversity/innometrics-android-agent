@@ -53,7 +53,7 @@ public class ActivitiesFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        setListView();
+        //TODO UNCOMMENT AFTER API FIX setListView();
         return view;
     }
 
@@ -76,7 +76,9 @@ public class ActivitiesFragment extends Fragment {
      * Bind activities data and the ListView
      */
     private void setListView(){
+
         ArrayList<String> activitiesStrings = new ArrayList<>();
+
         try {
             for (int i = 0; i < mActivitiesJSON.length(); i++) {
                 activitiesStrings.add(mActivitiesJSON.getJSONObject(i).getString(ConnectionUtils.ACTIVITY_NAME));
@@ -107,6 +109,7 @@ public class ActivitiesFragment extends Fragment {
             });
         } catch (JSONException e) {
             e.printStackTrace();
+
         }
     }
 }

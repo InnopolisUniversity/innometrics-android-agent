@@ -112,30 +112,31 @@ public class LocationsFragment extends Fragment {
         JSONObject response = new JSONObject();
         JSONArray activities = new JSONArray();
         for (int i = 0; i < mLocations.size(); i++) {
-            LocationItem item = mLocations.get(i);
-            JSONObject activity = new JSONObject();
-            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_NAME, "Android Agent. Locations.");
-            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_COMMENT, "");
-            JSONArray measurements = new JSONArray();
-            JSONObject latitude = new JSONObject();
-            latitude.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_TYPE, "double");
-            latitude.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_NAME, "latitude");
-            latitude.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_VALUE, item.getLatitude());
-            JSONObject longitude = new JSONObject();
-            longitude.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_TYPE, "double");
-            longitude.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_NAME, "longitude");
-            longitude.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_VALUE, item.getLatitude());
-            JSONObject time = new JSONObject();
-            time.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_TYPE, "long");
-            time.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_NAME, "time");
-            time.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_VALUE, item.getLatitude());
-            measurements.put(latitude);
-            measurements.put(longitude);
-            measurements.put(time);
-            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENTS, measurements);
-
-            activities.put(activity);
+//            LocationItem item = mLocations.get(i);
+//            JSONObject activity = new JSONObject();
+//            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_NAME, "Android Agent. Locations.");
+//            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_COMMENT, "");
+//            JSONArray measurements = new JSONArray();
+//            JSONObject latitude = new JSONObject();
+//            latitude.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_TYPE, "double");
+//            latitude.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_NAME, "latitude");
+//            latitude.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_VALUE, item.getLatitude());
+//            JSONObject longitude = new JSONObject();
+//            longitude.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_TYPE, "double");
+//            longitude.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_NAME, "longitude");
+//            longitude.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_VALUE, item.getLatitude());
+//            JSONObject time = new JSONObject();
+//            time.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_TYPE, "long");
+//            time.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_NAME, "time");
+//            time.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENT_VALUE, item.getLatitude());
+//            measurements.put(latitude);
+//            measurements.put(longitude);
+//            measurements.put(time);
+//            activity.accumulate(ConnectionUtils.SEND_ACTIVITY_MEASUREMENTS, measurements);
+//
+//            activities.put(activity);
         }
+        //response.accumulate(ConnectionUtils.SEND_ACTIVITIES, activities);
         response.accumulate(ConnectionUtils.SEND_ACTIVITIES, activities);
         return response;
     }

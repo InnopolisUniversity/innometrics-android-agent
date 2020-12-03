@@ -23,6 +23,7 @@ import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
 
+
 public class LoginActivity extends BasicActivity {
     public static final String TAG = "LoginActivity";
     private static final boolean DEBUG = ApplicationUtils.DEBUG;
@@ -89,7 +90,14 @@ public class LoginActivity extends BasicActivity {
                             JSONObject jsonObject = new JSONObject();
                             jsonObject.accumulate(ConnectionUtils.LOGIN_USERNAME, login);
                             jsonObject.accumulate(ConnectionUtils.LOGIN_PASSWORD, password);
+                            jsonObject.accumulate(ConnectionUtils.LOGIN_PROJECT, "parasha");
                             ResponseObject answer = ConnectionUtils.request(new ServerRequestItem(ConnectionUtils.URL_LOGIN_TOKEN, null, jsonObject.toString()));
+                            if (answer == null)
+                            {
+                                onLoginFailed(null);
+                                progressDialog.dismiss();
+                                return;
+                            }
                             if (answer.getResponseCode() == HttpURLConnection.HTTP_OK) {
                                 onLoginSuccess(answer, login, password);
                             } else {
@@ -126,6 +134,12 @@ public class LoginActivity extends BasicActivity {
      * Note: only one error per edit field is shown, though server sends them as arrays (with one element)
      */
     private void onLoginFailed(ResponseObject answer) {
+        if (answer == null)
+        {
+            Toast.makeText(getBaseContext(), "There is no connection to server", Toast.LENGTH_LONG).show();
+            mLoginButton.setEnabled(true);
+            return;
+        }
         //TODO: response errors can't be translated like other strings
         JSONObject responseBody = answer.getResponse();
         try {
@@ -137,9 +151,9 @@ public class LoginActivity extends BasicActivity {
                 String passwordErrors = ((JSONArray) responseBody.get(ConnectionUtils.LOGIN_PASSWORD)).getString(0);
                 mInputPassword.setError(passwordErrors);
             }
-            if (responseBody.has(ConnectionUtils.LOGIN_NON_FIELD_ERRORS)){
-                Toast.makeText(getBaseContext(), ((JSONArray) responseBody.get(ConnectionUtils.LOGIN_NON_FIELD_ERRORS)).getString(0), Toast.LENGTH_LONG).show();
-            }
+            //if (responseBody.has(ConnectionUtils.LOGIN_NON_FIELD_ERRORS)){
+            //    Toast.makeText(getBaseContext(), ((JSONArray) responseBody.get(ConnectionUtils.LOGIN_NON_FIELD_ERRORS)).getString(0), Toast.LENGTH_LONG).show();
+            //}
         } catch (JSONException e) {
             e.printStackTrace();
         }
